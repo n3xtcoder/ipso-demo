@@ -26,11 +26,13 @@ const returnUsers = (data = {}) => {
   return ret
 }
 
+const genders = returnUsers(clientdata)
+
 class App extends Component {
   constructor() {
     super();
     this.state = {
-      genders: {},
+      genders: returnUsers(clientdata),
       geodata: [
         ["Country", "Clients"],
         ["Germany", 200],
@@ -84,7 +86,12 @@ class App extends Component {
         },
         fontName: "Roboto"
       },
-      piechartdata: {}
+      piechartdata:  [
+        ["Age", "Weight"],
+        ["Male", genders.males],
+        ["Female", genders.females],
+        ["Undisclosed/other", genders.others]
+      ]
     }
   }
 
@@ -112,7 +119,7 @@ class App extends Component {
     // .catch(console.error);
   }
 
-    render() {
+  render() {
       return (
         <div className="App">
           <header className="App-header">
