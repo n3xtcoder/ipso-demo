@@ -42,6 +42,7 @@ class App extends Component {
         ["Lebanon", 400],
         ["Syria", 500],
         ["Algeria", 500],
+        ["Sudan", 500],
         ["Egypt", 800],
         ["Yemen", 600]
       ],
@@ -51,7 +52,8 @@ class App extends Component {
         ["Austria", 300],
         ["Italy", 500],
         ["Poland", 200],
-        ["France", 600]
+        ["France", 600],
+        ["Spain", 600]
       ],
       linechartdata: [
         ["Sessions", "All", "New", "Follow Up"],
