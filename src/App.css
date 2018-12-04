@@ -38,10 +38,11 @@
 
 .fullwidth {
     width: 100%;
+    min-height: 470px;
 }
 
 .session-cell{
-  min-height: 408px;
+  min-height: 434px;
 }
 
 .session-cell i, span {
@@ -51,6 +52,31 @@
 
 .session-cell h4 {
   text-align: center;
-  margin-top: 5px;
-  margin-bottom: 40px;
+  margin-top: 15px;
+  margin-bottom: 60px;
+}
+
+.mdl-data-table__cell--non-numeric {
+  color: black !important;
+}
+
+.mdl-layout__header {
+  background-color: #b6bfc9 !important;
+  color: white;
+  text-transform: uppercase;
+}
+
+.mdl-layout__title {
+  font-weight: 700 !important;
+}
+
+.demo-card-wide {
+  padding: 16px;
+}
+
+.mdl-card__title-text {
+  color: #b6bfc9;
+  text-transform: uppercase;
+  font-size: 13px;
+  font-weight: bold;
 }

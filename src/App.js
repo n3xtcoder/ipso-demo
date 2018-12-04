@@ -25,6 +25,9 @@ const returnUsers = (data = {}) => {
   }
   return ret
 }
+const returnTeams = (data = {}) => {
+  return data["team"]
+}
 
 const genders = returnUsers(clientdata)
 
@@ -32,6 +35,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      teams: returnTeams(clientdata),
       genders: returnUsers(clientdata),
       geodata: [
         ["Country", "Clients"],
@@ -44,10 +48,10 @@ class App extends Component {
       ],
       linechartdata: [
         ["Sessions", "All", "New", "Follow Up"],
-        ["Week 1", 1000, 200, 800],
-        ["Week 2", 1200, 400, 800],
-        ["Week 3", 1400, 200, 1200],
-        ["Week 4", 1600, 300, 1300]
+        ["Week 1", 10, 5, 5],
+        ["Week 2", 15, 5, 10],
+        ["Week 3", 20, 15, 5],
+        ["Week 4", 10, 2, 8]
       ],
       linechartoptions: {
         curveType: "function",
@@ -58,13 +62,13 @@ class App extends Component {
         pieHole: 0.6,
         slices: [
           {
-            color: "blue"
+            color: "#DAF48A"
           },
           {
-            color: "red"
+            color: "#946DB7"
           },
           {
-            color: "green"
+            color: "#d9dee3"
           }
         ],
         legend: {
@@ -146,7 +150,7 @@ class App extends Component {
                             }
                           ]}
                           chartType="LineChart"
-                          width="100%"
+                          width="100.1%"
                           height="400px"
                           data={this.state.linechartdata}
                           options={this.state.linechartoptions}
@@ -198,6 +202,37 @@ class App extends Component {
                   <div className="mdl-cell mdl-cell--4-col">
                     <div className="demo-card-wide mdl-shadow--2dp">
                       <div className="mdl-card__title">
+                        <h2 className="mdl-card__title-text">Teams List</h2>
+                      </div>
+                      <table className="mdl-data-table mdl-js-data-table fullwidth">
+                        <thead>
+                          <tr>
+                            <th className="mdl-data-table__cell--non-numeric">Name</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="mdl-data-table__cell--non-numeric">{this.state.teams[0].name}</td>
+                          </tr>
+                          <tr>
+                            <td className="mdl-data-table__cell--non-numeric">{this.state.teams[1].name}</td>
+                          </tr>
+                          <tr>
+                            <td className="mdl-data-table__cell--non-numeric">{this.state.teams[2].name}</td>
+                          </tr>
+                          <tr>
+                            <td className="mdl-data-table__cell--non-numeric">{this.state.teams[3].name}</td>
+                          </tr>
+                          <tr>
+                            <td className="mdl-data-table__cell--non-numeric">{this.state.teams[4].name}</td>
+                          </tr>
+                        </tbody>
+                      </table>
+                    </div>
+                  </div>
+                  <div className="mdl-cell mdl-cell--5-col mdl-cell--1-offset">
+                    <div className="demo-card-wide mdl-shadow--2dp">
+                      <div className="mdl-card__title">
                         <h2 className="mdl-card__title-text">Home Countries</h2>
                       </div>
                       <div className="mdl-card__media">
@@ -215,7 +250,7 @@ class App extends Component {
                             }
                           ]}
                           chartType="GeoChart"
-                          width="100%"
+                          width="100.1%"
                           height="400px"
                           data={this.state.geodata}
                         />
@@ -226,27 +261,35 @@ class App extends Component {
                       </div>
                     </div>
                   </div>
-                  <div className="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
+                  <div className="mdl-cell mdl-cell--5-col">
                     <div className="demo-card-wide mdl-shadow--2dp">
                       <div className="mdl-card__title">
-                        <h2 className="mdl-card__title-text">Counsellors List</h2>
+                        <h2 className="mdl-card__title-text">Resident Countries</h2>
                       </div>
-                      <table className="mdl-data-table mdl-js-data-table fullwidth">
-                        <thead>
-                          <tr>
-                            <th className="mdl-data-table__cell--non-numeric">Name</th>
-                            <th>Age</th>
-                            <th>ID Number</th>
-                          </tr>
-                        </thead>
-                        <tbody>
-                          <tr>
-                            <td className="mdl-data-table__cell--non-numeric">Don Aubrey</td>
-                            <td>25</td>
-                            <td>49021</td>
-                          </tr>
-                        </tbody>
-                      </table>
+                      <div className="mdl-card__media">
+                        <Chart
+                          chartEvents={[
+                            {
+                              eventName: "select",
+                              callback: ({ chartWrapper }) => {
+                                const chart = chartWrapper.getChart();
+                                const selection = chart.getSelection();
+                                if (selection.length === 0) return;
+                                const region = data[selection[0].row + 1];
+                                console.log("Selected : " + region);
+                              }
+                            }
+                          ]}
+                          chartType="GeoChart"
+                          width="100.1%"
+                          height="400px"
+                          data={this.state.geodata}
+                        />
+                      </div>
+                      <div className="mdl-card__supporting-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                      </div>
                     </div>
                   </div>
                 </div>
