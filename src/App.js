@@ -8,16 +8,15 @@ const data = require ("./JsonDump.json")
 const clientdata = require ("./anotherDump.json")
 
 const returnUsers = (data = {}) => {
-  // console.log(data["user"]);
   const ret = {
     males: 0,
     females: 0,
     others: 0
   }
   for (const user of data["user"]) {
-    if (user.gender === 'm') 
+    if (user.gender === 'm')
       ret.males += 1
-    else if (user.gender === 'f') 
+    else if (user.gender === 'f')
       ret.females += 1
     else {
       ret.others += 1
@@ -99,7 +98,6 @@ class App extends Component {
                     </div>
                     <div className="mdl-card__media">
                       <Chart
-
                         chartEvents={[
                           {
                             eventName: "select",
@@ -115,8 +113,8 @@ class App extends Component {
                         chartType="LineChart"
                         width="100%"
                         height="400px"
-                        data={linechartdata}
-                        options={linechartoptions}
+                        data={this.state.linechartdata}
+                        options={this.state.linechartoptions}
                       />
                     </div>
                     <div className="mdl-card__supporting-text">
@@ -133,13 +131,10 @@ class App extends Component {
                     <div className="mdl-card__supporting-text session-cell">
                       <i className="material-icons">chat_bubble_outline</i><span>&nbsp;45</span>
                       <h4>All sessions</h4>
-                      <i className="material-icons">autorenew</i>
+                      <i className="material-icons">add_box</i><span>&nbsp;15</span>
                       <h4>New sessions</h4>
-                      <i className="material-icons">
-                      autorenew
-                      </i>
+                      <i className="material-icons">autorenew</i><span>&nbsp;30</span>
                       <h4>Follow-Up</h4>
-
                     </div>
                   </div>
                 </div>
@@ -151,8 +146,8 @@ class App extends Component {
                     <div className="mdl-card__media">
                       <Chart
                         chartType="PieChart"
-                        data={[["Age", "Weight"], ["Male", 12], ["Female", 5.5], ["Undisclosed/other", 2.8]]}
-                        options={pieOptions}
+                        data={[["Age", "Weight"], ["Male", {this.state.ret.males}], ["Female", {this.state.ret.females}], ["Undisclosed/other", {this.state.ret.others}]]}
+                        options={this.state.pieOptions}
                         graph_id="PieChart"
                         width={"100%"}
                         height={"400px"}
@@ -187,7 +182,7 @@ class App extends Component {
                         chartType="GeoChart"
                         width="100%"
                         height="400px"
-                        data={geodata}
+                        data={this.state.geodata}
                       />
                     </div>
                     <div className="mdl-card__supporting-text">
