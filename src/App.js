@@ -6,25 +6,23 @@ import './App.css';
 const data = require ("./JsonDump.json")
 
 const clientdata = require ("./anotherDump.json")
-
-function returnUsers() {
-  //  console.log(clientdata["user"]);
-  var males = 0;
-  var females = 0;
-  var others = 0;
-  for (var i = 1, l = clientdata["user"].length; i <= l; i++) {
-    console.log(clientdata["user"][i].gender);
-    if (clientdata["user"][i].gender === "m") {
-      males++;
-    } else if (clientdata["user"][i].gender === "f") {
-      females++;
-    } else {
-      others++;
+const returnUsers = (data = {}) => {
+  // console.log(data["user"]);
+  const ret = {
+    males: 0,
+    females: 0,
+    others: 0
+  }
+  for (const user of data["user"]) {
+    if (user.gender === 'm') 
+      ret.males += 1
+    else if (user.gender === 'f') 
+      ret.females += 1
+    else {
+      ret.others += 1
     }
   }
-  console.log(males);
-  console.log(females);
-  console.log(others);
+  return ret
 }
 
 const geodata = [
@@ -72,9 +70,7 @@ const pieOptions = {
 };
 
 class App extends Component {
-  render() {
-    console.log(returnUsers());
-
+    render() {
     return (
       <div className="App">
         <header className="App-header">
@@ -97,7 +93,7 @@ class App extends Component {
                               const selection = chart.getSelection();
                               if (selection.length === 0) return;
                               const region = data[selection[0].row + 1];
-                              console.log("Selected : " + region);
+                              console.log("Selected : " + region)
                             }
                           }
                         ]}
