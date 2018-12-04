@@ -39,12 +39,19 @@ class App extends Component {
       genders: returnUsers(clientdata),
       geodata: [
         ["Country", "Clients"],
-        ["Germany", 200],
-        ["United States", 300],
-        ["Brazil", 400],
-        ["Canada", 500],
-        ["France", 600],
-        ["RU", 700]
+        ["Lebanon", 400],
+        ["Syria", 500],
+        ["Algeria", 500],
+        ["Egypt", 800],
+        ["Yemen", 600]
+      ],
+      geodata2: [
+        ["Country", "Clients"],
+        ["Germany", 800],
+        ["Austria", 300],
+        ["Italy", 500],
+        ["Poland", 200],
+        ["France", 600]
       ],
       linechartdata: [
         ["Sessions", "All", "New", "Follow Up"],
@@ -156,10 +163,6 @@ class App extends Component {
                           options={this.state.linechartoptions}
                         />
                       </div>
-                      <div className="mdl-card__supporting-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Mauris sagittis pellentesque lacus eleifend lacinia...
-                      </div>
                     </div>
                   </div>
                   <div className="mdl-cell mdl-cell--2-col mdl-cell--1-offset">
@@ -256,8 +259,7 @@ class App extends Component {
                         />
                       </div>
                       <div className="mdl-card__supporting-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                        The countries our clients have come from.
                       </div>
                     </div>
                   </div>
@@ -283,12 +285,11 @@ class App extends Component {
                           chartType="GeoChart"
                           width="100.1%"
                           height="400px"
-                          data={this.state.geodata}
+                          data={this.state.geodata2}
                         />
                       </div>
                       <div className="mdl-card__supporting-text">
-                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                        The countries our clients are living in right now.
                       </div>
                     </div>
                   </div>
