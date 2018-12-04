@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Chart } from "react-google-charts";
 import logo from './logo.svg';
 import './App.css';
+import fetch from "unfetch";
 
 const data = require ("./JsonDump.json")
 
@@ -30,6 +31,7 @@ class App extends Component {
   constructor() {
     super();
     this.state = {
+      genders: {},
       geodata: [
         ["Country", "Clients"],
         ["Germany", 200],
@@ -85,7 +87,20 @@ class App extends Component {
       }
     }
   }
-    render() {
+  
+  componentDidMount() {
+    const endpoint =
+    "./anotherDump.json";
+    fetch(endpoint)
+        .then(response => response.json())
+        .then(data => {
+          this.setState({
+            genders: returnUsers(data)
+          });
+      }).catch(console.error);
+  }
+
+  render() {
     return (
       <div className="App">
         <header className="App-header">
