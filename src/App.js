@@ -6,6 +6,7 @@ import './App.css';
 const data = require ("./JsonDump.json")
 
 const clientdata = require ("./anotherDump.json")
+
 const returnUsers = (data = {}) => {
   // console.log(data["user"]);
   const ret = {
@@ -34,6 +35,18 @@ const geodata = [
   ["France", 600],
   ["RU", 700]
 ];
+
+const linechartdata = [
+  ["Sessions", "All", "New", "Follow Up"],
+  ["Week 1", 1000, 200, 800],
+  ["Week 2", 1200, 400, 800],
+  ["Week 3", 1400, 200, 1200],
+  ["Week 4", 1600, 300, 1300]
+];
+const linechartoptions = {
+  curveType: "function",
+  legend: { position: "bottom" }
+};
 
 const pieOptions = {
   title: "",
@@ -77,14 +90,14 @@ class App extends Component {
           <main className="mdl-layout__content">
             <div className="page-content">
               <div className="mdl-grid">
-
-                <div className="mdl-cell mdl-cell--5-col mdl-cell--1-offset">
+                <div className="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
                   <div className="demo-card-wide mdl-shadow--2dp">
                     <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Home Countries</h2>
+                      <h2 className="mdl-card__title-text">Sessions</h2>
                     </div>
                     <div className="mdl-card__media">
                       <Chart
+
                         chartEvents={[
                           {
                             eventName: "select",
@@ -97,10 +110,11 @@ class App extends Component {
                             }
                           }
                         ]}
-                        chartType="GeoChart"
+                        chartType="LineChart"
                         width="100%"
                         height="400px"
-                        data={geodata}
+                        data={linechartdata}
+                        options={linechartoptions}
                       />
                     </div>
                     <div className="mdl-card__supporting-text">
@@ -109,10 +123,50 @@ class App extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="mdl-cell mdl-cell--5-col">
+                <div className="mdl-cell mdl-cell--2-col mdl-cell--1-offset">
                   <div className="demo-card-wide mdl-shadow--2dp">
                     <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Resident Countries</h2>
+                      <h2 className="mdl-card__title-text">Sessions per Month</h2>
+                    </div>
+                    <div className="mdl-card__supporting-text session-cell">
+                      <i className="material-icons">chat_bubble_outline</i><span>&nbsp;45</span>
+                      <h4>All sessions</h4>
+                      <i className="material-icons">autorenew</i>
+                      <h4>New sessions</h4>
+                      <i className="material-icons">
+                      autorenew
+                      </i>
+                      <h4>Follow-Up</h4>
+
+                    </div>
+                  </div>
+                </div>
+                <div className="mdl-cell mdl-cell--4-col">
+                  <div className="demo-card-wide mdl-shadow--2dp">
+                    <div className="mdl-card__title">
+                      <h2 className="mdl-card__title-text">Gender</h2>
+                    </div>
+                    <div className="mdl-card__media">
+                      <Chart
+                        chartType="PieChart"
+                        data={[["Age", "Weight"], ["Male", 12], ["Female", 5.5], ["Undisclosed/other", 2.8]]}
+                        options={pieOptions}
+                        graph_id="PieChart"
+                        width={"100%"}
+                        height={"400px"}
+                        legend_toggle
+                      />
+                    </div>
+                    <div className="mdl-card__supporting-text">
+                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                      Mauris sagittis pellentesque lacus eleifend lacinia...
+                    </div>
+                  </div>
+                </div>
+                <div className="mdl-cell mdl-cell--4-col">
+                  <div className="demo-card-wide mdl-shadow--2dp">
+                    <div className="mdl-card__title">
+                      <h2 className="mdl-card__title-text">Home Countries</h2>
                     </div>
                     <div className="mdl-card__media">
                       <Chart
@@ -140,40 +194,27 @@ class App extends Component {
                     </div>
                   </div>
                 </div>
-                <div className="mdl-cell mdl-cell--5-col mdl-cell--1-offset">
+                <div className="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
                   <div className="demo-card-wide mdl-shadow--2dp">
                     <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Counsellor Gender</h2>
+                      <h2 className="mdl-card__title-text">Counsellors List</h2>
                     </div>
-                    <div className="mdl-card__media">
-                      <Chart
-                        chartType="PieChart"
-                        data={[["Age", "Weight"], ["Male", 12], ["Female", 5.5], ["Undisclosed/other", 2.8]]}
-                        options={pieOptions}
-                        graph_id="PieChart"
-                        width={"100%"}
-                        height={"400px"}
-                        legend_toggle
-                      />
-                    </div>
-                    <div className="mdl-card__supporting-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Mauris sagittis pellentesque lacus eleifend lacinia...
-                    </div>
-                  </div>
-                </div>
-                <div className="mdl-cell mdl-cell--5-col">
-                  <div className="demo-card-wide mdl-shadow--2dp">
-                    <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Clients Gender</h2>
-                    </div>
-                    <div className="mdl-card__media">
-                      Soon to follow
-                    </div>
-                    <div className="mdl-card__supporting-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Mauris sagittis pellentesque lacus eleifend lacinia...
-                    </div>
+                    <table className="mdl-data-table mdl-js-data-table fullwidth">
+                      <thead>
+                        <tr>
+                          <th className="mdl-data-table__cell--non-numeric">Name</th>
+                          <th>Age</th>
+                          <th>ID Number</th>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <td className="mdl-data-table__cell--non-numeric">Don Aubrey</td>
+                          <td>25</td>
+                          <td>49021</td>
+                        </tr>
+                      </tbody>
+                    </table>
                   </div>
                 </div>
               </div>

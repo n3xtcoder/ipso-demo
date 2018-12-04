@@ -35,3 +35,19 @@
 .demo-card-wide {
   background: #fff;
 }
+
+.fullwidth {
+    width: 100%;
+}
+
+.session-cell{
+  min-height: 408px;
+}
+
+.session-cell i, span {
+  font-size: 2.5em;
+}
+
+.session-cell h4 {
+  text-align: center;
+}
