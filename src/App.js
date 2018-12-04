@@ -89,17 +89,17 @@ class App extends Component {
   }
 
   componentDidMount() {
-    const endpoint =
-    "./anotherDump.json";
-    fetch(endpoint)
-    .then(response => response.json())
-    .then(data => {
-      console.log(data);
+    // const endpoint =
+    // "./anotherDump.json";
+    // fetch(endpoint)
+    // .then(response => response.json())
+    // .then(data => {
+    //   console.log(data);
       this.setState({
-        genders: returnUsers(data),
+        genders: returnUsers(clientdata),
       })
-    })
-    .then(data => {
+    // })
+    // .then(data => {
       this.setState({
         piechartdata:  [
           ["Age", "Weight"],
@@ -108,8 +108,8 @@ class App extends Component {
           ["Undisclosed/other", this.state.genders.others]
         ]
       })
-    })
-    .catch(console.error);
+    // })
+    // .catch(console.error);
   }
 
     render() {
