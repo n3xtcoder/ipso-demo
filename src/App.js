@@ -26,63 +26,65 @@ const returnUsers = (data = {}) => {
   return ret
 }
 
-const geodata = [
-  ["Country", "Clients"],
-  ["Germany", 200],
-  ["United States", 300],
-  ["Brazil", 400],
-  ["Canada", 500],
-  ["France", 600],
-  ["RU", 700]
-];
-
-const linechartdata = [
-  ["Sessions", "All", "New", "Follow Up"],
-  ["Week 1", 1000, 200, 800],
-  ["Week 2", 1200, 400, 800],
-  ["Week 3", 1400, 200, 1200],
-  ["Week 4", 1600, 300, 1300]
-];
-const linechartoptions = {
-  curveType: "function",
-  legend: { position: "bottom" }
-};
-
-const pieOptions = {
-  title: "",
-  pieHole: 0.6,
-  slices: [
-    {
-      color: "blue"
-    },
-    {
-      color: "red"
-    },
-    {
-      color: "green"
-    }
-  ],
-  legend: {
-    position: "bottom",
-    alignment: "center",
-    textStyle: {
-      color: "233238",
-      fontSize: 14
-    }
-  },
-  tooltip: {
-    showColorCode: true
-  },
-  chartArea: {
-    left: 0,
-    top: 0,
-    width: "100%",
-    height: "80%"
-  },
-  fontName: "Roboto"
-};
-
 class App extends Component {
+  constructor() {
+    super();
+    this.state = {
+      geodata: [
+        ["Country", "Clients"],
+        ["Germany", 200],
+        ["United States", 300],
+        ["Brazil", 400],
+        ["Canada", 500],
+        ["France", 600],
+        ["RU", 700]
+      ],
+      linechartdata: [
+        ["Sessions", "All", "New", "Follow Up"],
+        ["Week 1", 1000, 200, 800],
+        ["Week 2", 1200, 400, 800],
+        ["Week 3", 1400, 200, 1200],
+        ["Week 4", 1600, 300, 1300]
+      ],
+        linechartoptions: {
+        curveType: "function",
+        legend: { position: "bottom" }
+      },
+      pieOptions: {
+        title: "",
+        pieHole: 0.6,
+        slices: [
+          {
+            color: "blue"
+          },
+          {
+            color: "red"
+          },
+          {
+            color: "green"
+          }
+        ],
+        legend: {
+          position: "bottom",
+          alignment: "center",
+          textStyle: {
+            color: "233238",
+            fontSize: 14
+          }
+        },
+        tooltip: {
+          showColorCode: true
+        },
+        chartArea: {
+          left: 0,
+          top: 0,
+          width: "100%",
+          height: "80%"
+        },
+        fontName: "Roboto"
+      }
+    }
+  }
     render() {
     return (
       <div className="App">
