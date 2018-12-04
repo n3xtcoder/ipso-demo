@@ -16,9 +16,9 @@ const returnUsers = (data = {}) => {
   }
   for (const user of data["user"]) {
     if (user.gender === 'm')
-      ret.males += 1
+    ret.males += 1
     else if (user.gender === 'f')
-      ret.females += 1
+    ret.females += 1
     else {
       ret.others += 1
     }
@@ -47,7 +47,7 @@ class App extends Component {
         ["Week 3", 1400, 200, 1200],
         ["Week 4", 1600, 300, 1300]
       ],
-        linechartoptions: {
+      linechartoptions: {
         curveType: "function",
         legend: { position: "bottom" }
       },
@@ -83,159 +83,172 @@ class App extends Component {
           height: "80%"
         },
         fontName: "Roboto"
-      }
+      },
+      piechartdata: {}
     }
   }
-  
+
   componentDidMount() {
     const endpoint =
     "./anotherDump.json";
     fetch(endpoint)
-        .then(response => response.json())
-        .then(data => {
-          this.setState({
-            genders: returnUsers(data)
-          });
-      }).catch(console.error);
+    .then(response => response.json())
+    .then(data => {
+      console.log(data);
+      this.setState({
+        genders: returnUsers(data),
+      })
+    })
+    .then(data => {
+      this.setState({
+        piechartdata:  [
+          ["Age", "Weight"],
+          ["Male", this.state.genders.males],
+          ["Female", this.state.genders.females],
+          ["Undisclosed/other", this.state.genders.others]
+        ]
+      })
+    })
+    .catch(console.error);
   }
 
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <main className="mdl-layout__content">
-            <div className="page-content">
-              <div className="mdl-grid">
-                <div className="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
-                  <div className="demo-card-wide mdl-shadow--2dp">
-                    <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Sessions</h2>
-                    </div>
-                    <div className="mdl-card__media">
-                      <Chart
-                        chartEvents={[
-                          {
-                            eventName: "select",
-                            callback: ({ chartWrapper }) => {
-                              const chart = chartWrapper.getChart();
-                              const selection = chart.getSelection();
-                              if (selection.length === 0) return;
-                              const region = data[selection[0].row + 1];
-                              console.log("Selected : " + region)
+    render() {
+      return (
+        <div className="App">
+          <header className="App-header">
+            <main className="mdl-layout__content">
+              <div className="page-content">
+                <div className="mdl-grid">
+                  <div className="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
+                    <div className="demo-card-wide mdl-shadow--2dp">
+                      <div className="mdl-card__title">
+                        <h2 className="mdl-card__title-text">Sessions</h2>
+                      </div>
+                      <div className="mdl-card__media">
+                        <Chart
+                          chartEvents={[
+                            {
+                              eventName: "select",
+                              callback: ({ chartWrapper }) => {
+                                const chart = chartWrapper.getChart();
+                                const selection = chart.getSelection();
+                                if (selection.length === 0) return;
+                                const region = data[selection[0].row + 1];
+                                console.log("Selected : " + region)
+                              }
                             }
-                          }
-                        ]}
-                        chartType="LineChart"
-                        width="100%"
-                        height="400px"
-                        data={this.state.linechartdata}
-                        options={this.state.linechartoptions}
-                      />
-                    </div>
-                    <div className="mdl-card__supporting-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Mauris sagittis pellentesque lacus eleifend lacinia...
-                    </div>
-                  </div>
-                </div>
-                <div className="mdl-cell mdl-cell--2-col mdl-cell--1-offset">
-                  <div className="demo-card-wide mdl-shadow--2dp">
-                    <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Sessions per Month</h2>
-                    </div>
-                    <div className="mdl-card__supporting-text session-cell">
-                      <i className="material-icons">chat_bubble_outline</i><span>&nbsp;45</span>
-                      <h4>All sessions</h4>
-                      <i className="material-icons">add_box</i><span>&nbsp;15</span>
-                      <h4>New sessions</h4>
-                      <i className="material-icons">autorenew</i><span>&nbsp;30</span>
-                      <h4>Follow-Up</h4>
+                          ]}
+                          chartType="LineChart"
+                          width="100%"
+                          height="400px"
+                          data={this.state.linechartdata}
+                          options={this.state.linechartoptions}
+                        />
+                      </div>
+                      <div className="mdl-card__supporting-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="mdl-cell mdl-cell--4-col">
-                  <div className="demo-card-wide mdl-shadow--2dp">
-                    <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Gender</h2>
-                    </div>
-                    <div className="mdl-card__media">
-                      <Chart
-                        chartType="PieChart"
-                        data={[["Age", "Weight"], ["Male", {this.state.ret.males}], ["Female", {this.state.ret.females}], ["Undisclosed/other", {this.state.ret.others}]]}
-                        options={this.state.pieOptions}
-                        graph_id="PieChart"
-                        width={"100%"}
-                        height={"400px"}
-                        legend_toggle
-                      />
-                    </div>
-                    <div className="mdl-card__supporting-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Mauris sagittis pellentesque lacus eleifend lacinia...
+                  <div className="mdl-cell mdl-cell--2-col mdl-cell--1-offset">
+                    <div className="demo-card-wide mdl-shadow--2dp">
+                      <div className="mdl-card__title">
+                        <h2 className="mdl-card__title-text">Sessions per Month</h2>
+                      </div>
+                      <div className="mdl-card__supporting-text session-cell">
+                        <i className="material-icons">chat_bubble_outline</i><span>&nbsp;45</span>
+                        <h4>All sessions</h4>
+                        <i className="material-icons">add_box</i><span>&nbsp;15</span>
+                        <h4>New sessions</h4>
+                        <i className="material-icons">autorenew</i><span>&nbsp;30</span>
+                        <h4>Follow-Up</h4>
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="mdl-cell mdl-cell--4-col">
-                  <div className="demo-card-wide mdl-shadow--2dp">
-                    <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Home Countries</h2>
+                  <div className="mdl-cell mdl-cell--4-col">
+                    <div className="demo-card-wide mdl-shadow--2dp">
+                      <div className="mdl-card__title">
+                        <h2 className="mdl-card__title-text">Gender</h2>
+                      </div>
+                      <div className="mdl-card__media">
+                        <Chart
+                          chartType="PieChart"
+                          data={this.state.piechartdata}
+                          options={this.state.pieOptions}
+                          graph_id="PieChart"
+                          width={"100%"}
+                          height={"400px"}
+                          legend_toggle
+                        />
+                      </div>
+                      <div className="mdl-card__supporting-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                      </div>
                     </div>
-                    <div className="mdl-card__media">
-                      <Chart
-                        chartEvents={[
-                          {
-                            eventName: "select",
-                            callback: ({ chartWrapper }) => {
-                              const chart = chartWrapper.getChart();
-                              const selection = chart.getSelection();
-                              if (selection.length === 0) return;
-                              const region = data[selection[0].row + 1];
-                              console.log("Selected : " + region);
+                  </div>
+                  <div className="mdl-cell mdl-cell--4-col">
+                    <div className="demo-card-wide mdl-shadow--2dp">
+                      <div className="mdl-card__title">
+                        <h2 className="mdl-card__title-text">Home Countries</h2>
+                      </div>
+                      <div className="mdl-card__media">
+                        <Chart
+                          chartEvents={[
+                            {
+                              eventName: "select",
+                              callback: ({ chartWrapper }) => {
+                                const chart = chartWrapper.getChart();
+                                const selection = chart.getSelection();
+                                if (selection.length === 0) return;
+                                const region = data[selection[0].row + 1];
+                                console.log("Selected : " + region);
+                              }
                             }
-                          }
-                        ]}
-                        chartType="GeoChart"
-                        width="100%"
-                        height="400px"
-                        data={this.state.geodata}
-                      />
-                    </div>
-                    <div className="mdl-card__supporting-text">
-                      Lorem ipsum dolor sit amet, consectetur adipiscing elit.
-                      Mauris sagittis pellentesque lacus eleifend lacinia...
+                          ]}
+                          chartType="GeoChart"
+                          width="100%"
+                          height="400px"
+                          data={this.state.geodata}
+                        />
+                      </div>
+                      <div className="mdl-card__supporting-text">
+                        Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+                        Mauris sagittis pellentesque lacus eleifend lacinia...
+                      </div>
                     </div>
                   </div>
-                </div>
-                <div className="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
-                  <div className="demo-card-wide mdl-shadow--2dp">
-                    <div className="mdl-card__title">
-                      <h2 className="mdl-card__title-text">Counsellors List</h2>
+                  <div className="mdl-cell mdl-cell--10-col mdl-cell--1-offset">
+                    <div className="demo-card-wide mdl-shadow--2dp">
+                      <div className="mdl-card__title">
+                        <h2 className="mdl-card__title-text">Counsellors List</h2>
+                      </div>
+                      <table className="mdl-data-table mdl-js-data-table fullwidth">
+                        <thead>
+                          <tr>
+                            <th className="mdl-data-table__cell--non-numeric">Name</th>
+                            <th>Age</th>
+                            <th>ID Number</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <td className="mdl-data-table__cell--non-numeric">Don Aubrey</td>
+                            <td>25</td>
+                            <td>49021</td>
+                          </tr>
+                        </tbody>
+                      </table>
                     </div>
-                    <table className="mdl-data-table mdl-js-data-table fullwidth">
-                      <thead>
-                        <tr>
-                          <th className="mdl-data-table__cell--non-numeric">Name</th>
-                          <th>Age</th>
-                          <th>ID Number</th>
-                        </tr>
-                      </thead>
-                      <tbody>
-                        <tr>
-                          <td className="mdl-data-table__cell--non-numeric">Don Aubrey</td>
-                          <td>25</td>
-                          <td>49021</td>
-                        </tr>
-                      </tbody>
-                    </table>
                   </div>
                 </div>
               </div>
-            </div>
-          </main>
-        </header>
-      </div>
-    );
+            </main>
+          </header>
+        </div>
+      );
+    }
   }
-}
 
-export default App;
+  export default App;
